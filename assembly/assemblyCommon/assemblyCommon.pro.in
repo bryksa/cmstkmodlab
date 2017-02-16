@@ -89,6 +89,7 @@ HEADERS += AssemblyVUEyeCamera.h \
            AssemblyVMarkerFinder.h \
            AssemblySensorMarkerFinder.h \
            AssemblySensorMarkerFinderWidget.h \
+           ConradManager.h \
            LStepExpressModel.h \
            LStepExpressSettings.h \
            LStepExpressMotion.h \
@@ -129,6 +130,7 @@ SOURCES += AssemblyVUEyeCamera.cc \
            AssemblyVMarkerFinder.cc \
            AssemblySensorMarkerFinder.cc \
            AssemblySensorMarkerFinderWidget.cc \
+           ConradManager.cc \
            LStepExpressModel.cc \
            LStepExpressSettings.cc \
            LStepExpressMotion.cc \

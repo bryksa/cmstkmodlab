@@ -25,7 +25,7 @@
 #include "LStepExpressMotionManager.h"
 
 //relay card for vacuum control
-#include "ConradModel.h"
+//#include "ConradModel.h"
 
 
 using namespace std;
@@ -36,11 +36,10 @@ class AssemblyScanner : public QObject
   Q_OBJECT
 
 public:
-  ConradModel * cnrd1;
   LStepExpressModel* lStepExpressModel_;
   LStepExpressMotionManager* motionManager_;
     
-  explicit AssemblyScanner(LStepExpressModel* lStepExpressModel_, ConradModel * cnrd1);
+  explicit AssemblyScanner(LStepExpressModel* lStepExpressModel_);
 
   double local_range, local_steps, local_delay;
   double x_meas, y_meas, z_meas;
@@ -64,7 +63,6 @@ public slots:
   void run_precisionestimation(double, double, double, double, double, double, int);
   void process_step();
   void fill_positionvectors(int , double, double, double);
-  void toggleVacuum();
 
 
     
@@ -79,7 +77,7 @@ signals:
     void acquireImage();
     void makeDummies(int, double,double,double);
     void showHistos(int, QString);
-    void changeVacuumState();
+    void toggleVacuum(int);
 };
 
 

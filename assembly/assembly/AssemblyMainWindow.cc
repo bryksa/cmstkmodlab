@@ -57,7 +57,8 @@ AssemblyMainWindow::AssemblyMainWindow(QWidget *parent) :
     uEyeWidget_ = new AssemblyUEyeWidget(uEyeModel_, this);
     tabWidget_->addTab(uEyeWidget_, "uEye");
     
-    cmdr_zscan = new AssemblyScanner(lStepExpressModel_, conradModel_);
+    cmdr_zscan = new AssemblyScanner(lStepExpressModel_);
+    conradManager_ = new ConradManager(conradModel_);
     
     NQLog("AssemblyMainWindow") << "assembly scanner constructed";
 
@@ -170,7 +171,7 @@ void AssemblyMainWindow::enablePrecisionEstimation(int state){
 
     connect(cmdr_zscan, SIGNAL(moveAbsolute(double, double, double, double)),motionManager_, SLOT(moveAbsolute(double, double,double, double)));
     connect(lStepExpressModel_, SIGNAL(motionFinished()), cmdr_zscan, SLOT(process_step()));
-  
+    connect(cmdr_zscan, SIGNAL(toggleVacuum(int)), conradManager_, SLOT(toggleVacuum(int)));
         
         //for testing with random numbers
     // connect(cmdr_zscan, SIGNAL(makeDummies(int, double,double,double)), cmdr_zscan, SLOT(fill_positionvectors(int, double,double,double)));
@@ -178,7 +179,7 @@ void AssemblyMainWindow::enablePrecisionEstimation(int state){
     //    for real lab tests with camera
      connect(cmdr_zscan, SIGNAL(acquireImage()), camera_, SLOT(acquireImage()));
 
-     connect(cmdr_zscan, SIGNAL(changeVacuumState()), cmdr_zscan, SLOT(changeVacuumState()));
+     //connect(cmdr_zscan, SIGNAL(changeVacuumState()), cmdr_zscan, SLOT(changeVacuumState()));
 
      connect(cmdr_zscan, SIGNAL(showHistos(int, QString)), assembleView_, SLOT(updateImage(int, QString)));
 
@@ -198,7 +199,7 @@ void AssemblyMainWindow::enablePrecisionEstimation(int state){
     disconnect(finder_, SIGNAL(getImageBlur(cv::Mat, cv::Rect)), cmdr_zscan, SLOT(write_image(cv::Mat, cv::Rect)) );
     disconnect(cmdr_zscan,SIGNAL(make_graph(vector<double>,vector<double>)),autoFocusView_,SLOT(make_graph(vector<double>,vector<double>)));
     disconnect(cmdr_zscan,SIGNAL(updateText(double)),autoFocusView_,SLOT(updateText(double)));
-        
+    disconnect(cmdr_zscan, SIGNAL(toggleVacuum(int)), conradManager_, SLOT(toggleVacuum(int)));    
     }
 }
 

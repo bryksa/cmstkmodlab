@@ -40,14 +40,13 @@ using namespace cv;
 TRandom * r = new TRandom();
 
 
-AssemblyScanner::AssemblyScanner(LStepExpressModel* lStepExpressModel_, ConradModel * cnrd1)
+AssemblyScanner::AssemblyScanner(LStepExpressModel* lStepExpressModel_)
 {
     NQLog("AssemblyScanner::AssemblyScanner()");
     motionManager_ = new LStepExpressMotionManager(lStepExpressModel_);
     qt = new QTimer(this);
     qt->setSingleShot(true);
     connect(qt, SIGNAL(timeout()), this, SLOT(process_step()));
-    connect(this, SIGNAL(changeVacuumState()), this, SLOT(toggleVacuum()));
 
 }
 
@@ -101,7 +100,7 @@ void  AssemblyScanner::fill_positionvectors(int stage, double x_pr, double y_pr,
 
 
 
-void AssemblyScanner::toggleVacuum()
+/*void AssemblyScanner::toggleVacuum()
 {
     NQLog("AssemblyScanner") << ": toggling vacuum voltage";
     
@@ -112,7 +111,7 @@ void AssemblyScanner::toggleVacuum()
                 cnrd1->setSwitchEnabled(1, false);
             }
         
-}
+}*/
 
 
 
@@ -146,7 +145,7 @@ void  AssemblyScanner::process_step(){
         
     }else if (step == 4){
         step++;
-        emit changeVacuumState();
+        emit toggleVacuum(1);
         // Step 4: Turn on vacuum
         qt->start(3000);
         
@@ -162,7 +161,7 @@ void  AssemblyScanner::process_step(){
     }else if (step == 7){
         step++;
         // Step 8: Release vacuum
-        emit changeVacuumState();
+        emit toggleVacuum(1);
     }else if (step == 8){
         step++;
         // Step 9: Go back to pre-pickup position
