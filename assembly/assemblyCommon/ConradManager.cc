@@ -1,5 +1,8 @@
+#include "nqlogger.h"
+
 #include "ConradManager.h"
 #include "ConradModel.h"
+
 
 ConradManager::ConradManager(ConradModel* cnrd1)
 {
@@ -10,7 +13,7 @@ ConradManager::ConradManager(ConradModel* cnrd1)
 /// toggleVacuum slot description
 void ConradManager::toggleVacuum(int channelNumber)
 {
-  NQLog("AssemblyScanner") << ": toggling vacuum with ConradManager";
+  NQLog("AssemblyManager") << ": toggling vacuum with ConradManager";
 
   if (ConradModel_ -> getSwitchState(channelNumber) == 0){
     ConradModel_ -> setSwitchEnabled(channelNumber, true);
