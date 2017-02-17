@@ -576,7 +576,7 @@ AssemblyVacuumToggler::AssemblyVacuumToggler(QWidget *parent, std::string string
 
 void AssemblyVacuumToggler::toggleVacuum()
 {
-    NQLog("AssemblyVacuumToggler") << ": toggling vacuum voltage";
+    NQLog("AssemblyVacuumToggler") << ": toggling vacuum voltage !!!";
     
     for (int i = 0; i < 3 ; i ++){
     

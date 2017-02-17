@@ -4,13 +4,14 @@
 ConradManager::ConradManager(ConradModel* cnrd1)
 {
   ConradModel_ = cnrd1;
-    // connect(this, SIGNAL(changeVacuumState()), this, SLOT(toggleVacuum()));
   
 }
 
 /// toggleVacuum slot description
 void ConradManager::toggleVacuum(int channelNumber)
 {
+  NQLog("AssemblyScanner") << ": toggling vacuum with ConradManager";
+
   if (ConradModel_ -> getSwitchState(channelNumber) == 0){
     ConradModel_ -> setSwitchEnabled(channelNumber, true);
                 
