@@ -19,8 +19,8 @@ void ConradManager::toggleVacuum(int channelNumber)
     ConradModel_ -> setSwitchEnabled(channelNumber, false);
   }
 
-  //looped status checking
-
+  //looped status checking with qt timer
+  
 }
 
 
